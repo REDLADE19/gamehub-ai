@@ -65,4 +65,8 @@ def dashboard():
     c=db(); events=c.execute('SELECT * FROM login_events WHERE username=? ORDER BY id DESC LIMIT 20',(session['username'],)).fetchall(); c.close(); return render_template('dashboard.html',username=session['username'],events=events)
 @app.route('/logout')
 def logout(): session.clear(); return redirect(url_for('index'))
-if __name__=='__main__' app.run(debug=True)
+
+init_db()
+
+if __name__ == "__main__":
+    app.run(debug=True)
