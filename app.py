@@ -21,6 +21,7 @@ def db():
     conn.execute("PRAGMA busy_timeout = 30000")
     conn.execute("PRAGMA journal_mode = WAL")
     return conn
+    
 def init_db():
     c=db(); c.executescript('''CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY,username TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,created_at TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS login_events(id INTEGER PRIMARY KEY,username TEXT NOT NULL,timestamp TEXT NOT NULL,ip TEXT NOT NULL,device TEXT NOT NULL,success INTEGER NOT NULL,login_frequency_per_day REAL NOT NULL,access_hour REAL NOT NULL,ip_is_new INTEGER NOT NULL,device_is_new INTEGER NOT NULL,failed_attempts INTEGER NOT NULL,minutes_since_previous_login REAL NOT NULL,ai_result TEXT NOT NULL,anomaly_score REAL NOT NULL);'''); c.commit(); c.close()
